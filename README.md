@@ -1,1 +1,1 @@
-# Hackathon 2025 case
+# AMR-Wind Hackathon 2025 case
