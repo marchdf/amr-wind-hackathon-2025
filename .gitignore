@@ -1,0 +1,6 @@
+*.log
+*.nsys-rep
+*.qdstrm
+*.sqlite
+profiling-hpctoolkit*
+post_processing/
