@@ -1,13 +1,15 @@
 #!/bin/bash
 #SBATCH -J profiling-hpctoolkit
 #SBATCH -o %x.o%j
-#SBATCH --account=flowmas   # Required
-#SBATCH --time=00:05:00
+#SBATCH --account hackathon
+#SBATCH --reservation hackathon
+#SBATCH --time=00:20:00
 #SBATCH --nodes=8
 #SBATCH --ntasks-per-node=128
 #SBATCH --gpus=32
 #SBATCH --exclusive
 #SBATCH --mem=0
+#SBATCH --exclude=x3103c0s37b0n0,x3104c0s25b0n0
 
 set -e
 cmd() {
@@ -33,6 +35,6 @@ PROFNAME="profiling"
 cmd "rm -rf ${PROFNAME}"
 cmd "rm -rf ${PROFNAME}_db"
 # cmd "srun -N ${SLURM_JOB_NUM_NODES} -n ${RANKS} --ntasks-per-node=${NTASKS_PER_NODE} --gpus-per-node=4 --gpu-bind=closest amr_wind demo_case.inp amrex.abort_on_out_of_gpu_memory=1 amrex.the_arena_is_managed=0 amr.blocking_factor=16 amr.max_grid_size=128 amrex.use_profiler_syncs=0 amrex.async_out=0 amrex.use_gpu_aware_mpi=1 time.max_step=40040 > out.log"
-cmd "srun -N ${SLURM_JOB_NUM_NODES} -n ${RANKS} --ntasks-per-node=${NTASKS_PER_NODE} --gpus-per-node=4 --gpu-bind=closest hpcrun -o ${PROFNAME} -f 0.2 -t -e CPUTIME -e gpu=nvidia amr_wind demo_case.inp amrex.abort_on_out_of_gpu_memory=1 amrex.the_arena_is_managed=0 amr.blocking_factor=16 amr.max_grid_size=128 amrex.use_profiler_syncs=0 amrex.async_out=0 amrex.use_gpu_aware_mpi=1 time.max_step=40040 > out-hpctoolkit.log"
+cmd "srun -N ${SLURM_JOB_NUM_NODES} -n ${RANKS} --ntasks-per-node=${NTASKS_PER_NODE} --gpus-per-node=4 --gpu-bind=closest hpcrun -o ${PROFNAME} -tt -e CPUTIME -e gpu=nvidia amr_wind demo_case.inp amrex.abort_on_out_of_gpu_memory=1 amrex.the_arena_is_managed=0 amr.blocking_factor=16 amr.max_grid_size=128 amrex.use_profiler_syncs=0 amrex.async_out=0 amrex.use_gpu_aware_mpi=1 time.max_step=40005 > out-hpctoolkit-${SLURM_JOB_ID}.log"
 cmd "hpcstruct ${PROFNAME}"
 cmd "hpcprof -o ${PROFNAME}_db ${PROFNAME}"
