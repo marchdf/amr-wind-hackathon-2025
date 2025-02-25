@@ -1,9 +1,8 @@
 #!/bin/bash
 #SBATCH -J profiling-nsys
 #SBATCH -o %x.o%j
-#SBATCH --account flowmas
-# #SBATCH --account hackathon
-# #SBATCH --reservation hackathon
+#SBATCH --account hackathon
+#SBATCH --reservation hackathon2
 #SBATCH --time=00:10:00
 #SBATCH --nodes=8
 #SBATCH --ntasks-per-node=128

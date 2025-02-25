@@ -1,7 +1,8 @@
 #!/bin/bash
 #SBATCH -J profiling-nruns
 #SBATCH -o %x.o%j
-#SBATCH --account=flowmas   # Required
+#SBATCH --account=hackathon   # Required
+#SBATCH --reservation=hackathon2
 #SBATCH --time=00:30:00
 #SBATCH --nodes=8
 #SBATCH --ntasks-per-node=128
