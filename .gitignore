@@ -3,4 +3,7 @@
 *.qdstrm
 *.sqlite
 profiling-hpctoolkit*
+profiling-nsys*
+profiling-ncu*
+profiling-nruns*
 post_processing/
